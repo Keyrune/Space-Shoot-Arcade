@@ -7,6 +7,16 @@ public class Player : MonoBehaviour
     private float moveX;
     public float offsetY = -3.5f;
 
+    # region Shoot
+
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float fireRate = 1f;
+    private float reloadTime;
+    private bool canShoot = true;
+
+    # endregion
+
     void Update()
     {
         if (Input.touchCount > 0)
@@ -16,6 +26,25 @@ public class Player : MonoBehaviour
             
             transform.position = touchPosition;
 
+        }
+
+        Shoot();
+
+    }
+
+    private void Shoot()
+    {   
+        if (canShoot)
+        {
+            canShoot = false;
+            reloadTime = Time.time + 1 / fireRate;
+
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        } 
+        
+        if (Time.time > reloadTime)
+        {
+            canShoot = true;
         }
 
     }
