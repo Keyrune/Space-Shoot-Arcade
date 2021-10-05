@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
             
             transform.position = touchPosition;
 
+        } 
+        else
+        {
+            transform.position += new Vector3(0, Time.deltaTime, 0);
         }
 
         Shoot();
@@ -48,4 +52,10 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    public void TakeDamage(float amount)
+    {
+        FindObjectOfType<GameManager>().GameOver();
+    }
+
 }
