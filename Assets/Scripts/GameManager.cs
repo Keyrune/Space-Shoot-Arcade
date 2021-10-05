@@ -12,10 +12,16 @@ public class GameManager : MonoBehaviour
     public float restartDelay = 1f;
     
 
+    void Start()
+    {
+
+    }
+
     void Update()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         SpawnAsteroid();
+        noTouchControll();
     }
 
     private void SpawnAsteroid()
@@ -44,6 +50,19 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // slow game if no touch detected
+    private void noTouchControll()
+    {
+        if (Input.touchCount > 0)
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 5f * Time.deltaTime);
+        }
+        else
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 0.05f, 5f * Time.deltaTime);
+        }
     }
 
 }

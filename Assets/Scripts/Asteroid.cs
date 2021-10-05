@@ -9,6 +9,7 @@ public class Asteroid : MonoBehaviour
     public float speed = 1f;
     public float collisionDamage = 60f;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();   
