@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     private float lastSpawn = 0f;
     public float restartDelay = 1f;
     
+    public GameObject MainMenuUI;
+    public GameObject GameUI;
+    public bool playerActive = false;
+
     # region Spawn
 
     # endregion
@@ -45,6 +49,11 @@ public class GameManager : MonoBehaviour
 
         score = Time.time - startTime;
         scoreText.text = score.ToString("0");
+        
+        if (Input.touchCount > 0 && !playerActive)
+        {
+            StartGame();
+        }
 
     }
 
@@ -79,8 +88,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // show when lvl complited or player dead
     public void GameOver()
-    {
+    {   
         Debug.Log("Game over");
         
         if (score > PlayerPrefs.GetFloat("HighScore", 0f))
@@ -88,12 +98,33 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("HighScore", score);
         }
         
+        playerActive = false;
+
         Invoke("StopGame", restartDelay);
         
     }
 
+    public void StartGame()
+    {
+        // Hide menu UI
+        MainMenuUI.SetActive(false);
+        GameUI.SetActive(true);
+
+        Time.timeScale = 1f;
+
+        // Fly offscreen
+
+        // Start game timer
+        startTime = Time.time;
+
+        // Give controll to the player
+        playerActive = true;
+    }
+
     public void StopGame()
     {
+
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -101,11 +132,7 @@ public class GameManager : MonoBehaviour
     // slow game if no touch detected
     private void noTouchControll()
     {
-        if (Time.timeScale == 0)
-            if (Input.touchCount > 0)
-                Time.timeScale = 1f;
-            else return;
-
+        if (!playerActive) return;
 
         if (Input.touchCount > 0)
         {
@@ -115,6 +142,11 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0.05f, 5f * Time.deltaTime);
         }
+    }
+
+    private void TouchInput()
+    {
+        
     }
 
 }
