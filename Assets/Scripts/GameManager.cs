@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Player player;
     public float spawnTime = 5f;
     public Asteroid asteroidPrefab;
     private Vector2 screenBounds;
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     public GameObject MainMenuUI;
     public GameObject GameUI;
     public bool playerActive = false;
+    enum GameState {MainMenu, Game, Shop, GamePause};
+    private GameState activeGameState = GameState.MainMenu;
+
 
     # region Spawn
 
@@ -49,11 +53,8 @@ public class GameManager : MonoBehaviour
 
         score = Time.time - startTime;
         scoreText.text = score.ToString("0");
-        
-        if (Input.touchCount > 0 && !playerActive)
-        {
-            StartGame();
-        }
+
+        TouchInput();
 
     }
 
@@ -105,7 +106,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartGame()
-    {
+    {   
+        activeGameState = GameState.Game;
+
         // Hide menu UI
         MainMenuUI.SetActive(false);
         GameUI.SetActive(true);
@@ -123,8 +126,8 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
-
-
+        activeGameState = GameState.MainMenu;
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -144,9 +147,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // TODO add multy touch 
     private void TouchInput()
-    {
-        
+    {   
+        if (Input.touchCount == 0) return;
+
+        Touch touch = Input.GetTouch(0);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPosition.z = 0f;
+
+        // main screen
+        if (activeGameState == GameState.MainMenu)
+        {   
+            // start game
+            if (touch.phase == TouchPhase.Began)
+                StartGame();
+
+            return;
+        }
+
+        // game 
+        if (activeGameState == GameState.Game)
+        {
+            // move player
+            player.Move(touchPosition);
+
+            return;
+        }
+
+        // shop
+        if (activeGameState == GameState.Shop)
+        {
+
+        }
+
     }
 
 }

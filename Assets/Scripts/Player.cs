@@ -17,20 +17,9 @@ public class Player : MonoBehaviour
 
     # endregion
 
+
     void Update()
     {
-        if (Input.touchCount > 0)
-        {
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            touchPosition.z = 0f;
-            
-            transform.position = touchPosition;
-
-        } 
-        else
-        {
-            transform.position += new Vector3(0, Time.deltaTime, 0);
-        }
 
         Shoot();
 
@@ -56,6 +45,12 @@ public class Player : MonoBehaviour
     public void TakeDamage(float amount)
     {
         FindObjectOfType<GameManager>().GameOver();
+    }
+
+    public void Move(Vector3 movePosition) // move in direction of position
+    {
+        transform.position = movePosition;
+
     }
 
 }
