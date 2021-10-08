@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private EnemySpawner enemySpawner;
     public Player player;
     public float spawnTime = 5f;
     public Asteroid asteroidPrefab;
@@ -47,9 +49,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        SpawnAsteroid();
-        noTouchControll();
+        enemySpawner.SpawnWave();
 
         score = Time.time - startTime;
         scoreText.text = score.ToString("0");
@@ -72,17 +72,17 @@ public class GameManager : MonoBehaviour
 
     # endregion
 
-    private void SpawnAsteroid()
-    {  
-        if (Time.time < lastSpawn + 2f) return;
-        lastSpawn = Time.time;
+    // private void SpawnAsteroid()
+    // {  
+    //     if (Time.time < lastSpawn + 2f) return;
+    //     lastSpawn = Time.time;
 
-        Vector3 spawnPosition = Vector3.zero;
-        spawnPosition.x = Random.Range(-screenBounds.x, screenBounds.x);
-        spawnPosition.y = screenBounds.y + 1f;
+    //     Vector3 spawnPosition = Vector3.zero;
+    //     spawnPosition.x = Random.Range(-screenBounds.x, screenBounds.x);
+    //     spawnPosition.y = screenBounds.y + 1f;
 
-        Instantiate(asteroidPrefab, spawnPosition, new Quaternion(0, 0, 180, 1));
-    }
+    //     Instantiate(asteroidPrefab, spawnPosition, new Quaternion(0, 0, 180, 1));
+    // }
 
     private void ClearOfScreen()
     {
@@ -133,24 +133,31 @@ public class GameManager : MonoBehaviour
 
 
     // slow game if no touch detected
-    private void noTouchControll()
-    {
-        if (!playerActive) return;
+    // private void noTouchControll()
+    // {
+    //     if (!playerActive) return;
 
-        if (Input.touchCount > 0)
-        {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 5f * Time.deltaTime);
-        }
-        else
-        {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, 0.05f, 5f * Time.deltaTime);
-        }
-    }
+    //     if (Input.touchCount > 0)
+    //     {
+    //         Time.timeScale = Mathf.Lerp(Time.timeScale, 1f, 5f * Time.deltaTime);
+    //     }
+    //     else
+    //     {
+    //         Time.timeScale = Mathf.Lerp(Time.timeScale, 0.05f, 5f * Time.deltaTime);
+    //     }
+    // }
 
     // TODO add multy touch 
+    
+    
     private void TouchInput()
     {   
-        if (Input.touchCount == 0) return;
+        if (Input.touchCount == 0) 
+        {
+
+            return;
+        }
+        
 
         Touch touch = Input.GetTouch(0);
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
