@@ -389,6 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782be61846cefac4ba1367e2bcbb06f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 864113824}
+  cameraBounds: 0.2
   speed: 1
 --- !u!20 &519420031
 Camera:
@@ -476,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b346183c884d1cc42b7404419b97c1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 864113823}
   spawnTime: 5
   asteroidPrefab: {fileID: 1775405706552186199, guid: 371e98f3f41e9e144a928652678e149c,
     type: 3}
