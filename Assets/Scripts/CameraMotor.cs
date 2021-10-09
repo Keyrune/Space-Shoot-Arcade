@@ -9,7 +9,7 @@ public class CameraMotor : MonoBehaviour
     public float speed = 1f;
 
 
-    void Update()
+    private void LateUpdate()
     {
         moveCamera();
     }

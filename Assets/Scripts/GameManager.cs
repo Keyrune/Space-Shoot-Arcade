@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour
     public float spawnTime = 5f;
     public Asteroid asteroidPrefab;
     private Vector2 screenBounds;
-    private float lastSpawn = 0f;
-    public float restartDelay = 1f;
+    //public float restartDelay = 1f;
     
     public GameObject MainMenuUI;
     public GameObject GameUI;
@@ -101,7 +100,7 @@ public class GameManager : MonoBehaviour
         
         playerActive = false;
 
-        Invoke("StopGame", restartDelay);
+        StopGame();
         
     }
 
@@ -154,7 +153,6 @@ public class GameManager : MonoBehaviour
     {   
         if (Input.touchCount == 0) 
         {
-
             return;
         }
         
@@ -177,7 +175,7 @@ public class GameManager : MonoBehaviour
         if (activeGameState == GameState.Game)
         {
             // move player
-            player.Move(touchPosition);
+            player.Move(touchPosition - player.transform.position);
 
             return;
         }

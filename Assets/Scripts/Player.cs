@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public float fireRate = 1f;
     private float reloadTime;
     private bool canShoot = true;
+    public float speed = 0.2f;
 
     # endregion
 
@@ -47,10 +48,10 @@ public class Player : MonoBehaviour
         FindObjectOfType<GameManager>().GameOver();
     }
 
-    public void Move(Vector3 movePosition) // move in direction of position
-    {
-        transform.position = movePosition;
+    public void Move(Vector3 moveDirection) // move in direction of position
+    {   
 
+        transform.position += Vector3.ClampMagnitude(moveDirection, speed * Time.deltaTime);
     }
 
 }
