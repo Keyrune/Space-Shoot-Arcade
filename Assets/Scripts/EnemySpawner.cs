@@ -14,9 +14,10 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnWave()
     {
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        screenBounds *= 1.2f; // temporary fix
         if (Time.time < lastSpawn + waveCooldown) return;
         lastSpawn = Time.time;
-        waveCooldown *= 0.97f;
+        waveCooldown -= waveCooldown * 0.02f;
 
         Vector3 spawnPosition = Vector3.zero;
         spawnPosition.x = Random.Range(-screenBounds.x, screenBounds.x);

@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        FindObjectOfType<GameManager>().GameOver();
+        //FindObjectOfType<GameManager>().GameOver();
     }
 
     public void Move(Vector3 moveDirection) // move in direction of position

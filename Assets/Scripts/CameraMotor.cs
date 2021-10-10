@@ -18,7 +18,7 @@ public class CameraMotor : MonoBehaviour
     {
         Vector3 newPosition;
 
-        newPosition.x = player.position.x * (1 - (1 / (1 + cameraBounds))); // extend screen by camerabounds %
+        newPosition.x = player.position.x * cameraBounds; // extend screen by camerabounds %
         newPosition.y = transform.position.y + speed * Time.deltaTime; 
         newPosition.z = -10f;
 

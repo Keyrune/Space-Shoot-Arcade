@@ -544,7 +544,6 @@ MonoBehaviour:
   spawnTime: 5
   asteroidPrefab: {fileID: 1775405706552186199, guid: 371e98f3f41e9e144a928652678e149c,
     type: 3}
-  restartDelay: 1
   MainMenuUI: {fileID: 1054972897}
   GameUI: {fileID: 1930083123}
   playerActive: 0
@@ -600,6 +599,7 @@ MonoBehaviour:
     type: 3}
   firePoint: {fileID: 351186621}
   fireRate: 2
+  speed: 7
 --- !u!4 &864113824
 Transform:
   m_ObjectHideFlags: 0
