@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         score = Time.time - startTime;
         scoreText.text = score.ToString("0");
 
+        
+
         TouchInput();
 
     }
@@ -99,7 +101,9 @@ public class GameManager : MonoBehaviour
         }
         
         playerActive = false;
-
+        
+        FindObjectOfType<AudioManager>().Play("gameover");
+        
         StopGame();
         
     }
@@ -176,6 +180,8 @@ public class GameManager : MonoBehaviour
         {
             // move player
             player.Move(touchPosition - player.transform.position);
+
+            player.Shoot();
 
             return;
         }

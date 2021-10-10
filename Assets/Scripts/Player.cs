@@ -19,14 +19,8 @@ public class Player : MonoBehaviour
     # endregion
 
 
-    void Update()
-    {
 
-        Shoot();
-
-    }
-
-    private void Shoot()
+    public void Shoot()
     {   
         if (canShoot)
         {
@@ -34,6 +28,7 @@ public class Player : MonoBehaviour
             reloadTime = Time.time + 1 / fireRate;
 
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            FindObjectOfType<AudioManager>().Play("Shoot");
         } 
         
         if (Time.time > reloadTime)
@@ -45,7 +40,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        //FindObjectOfType<GameManager>().GameOver();
+        FindObjectOfType<GameManager>().GameOver();
     }
 
     public void Move(Vector3 moveDirection) // move in direction of position
