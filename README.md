@@ -1,2 +1,4 @@
-# Block-Race
-simple 2d mobile game about block dodging obstacles
+# Space Shoot Arcade
+Mobile game about ship flying in space and destroing obstacles
+
+
